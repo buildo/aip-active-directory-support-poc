@@ -1,0 +1,26 @@
+version: '3'
+services:
+  ldap:
+    image: "openldap-sasl-proxy-authorization"
+    environment:
+      # openldap local server
+      - LDAP_DN_BASE=dc=wimpi,dc=net
+      - LDAP_ORGANIZATION=Wimpi
+      - LDAP_ROOT_DN=cn=Manager,dc=wimpi,dc=net
+      - LDAP_ROOT_PW=SuperSecret
+      - LDAP_DATABASE=hdb
+
+      # AD backend server
+      - LDAP_SERVERS=ldap://adpoc_ad_1:10389
+      - LDAP_SEARCH_BASE=ou=users,dc=wimpi,dc=net
+      - LDAP_TIMEOUT=10
+      - LDAP_FILTER=(sAMAccountName=%U)
+      - LDAP_BIND_DN=uid=admin,ou=system
+      - LDAP_PASSWORD=secret
+
+    ports:
+      - "389:389"
+  ad:
+    image: "psdocker/ldap-ad-it"
+    ports:
+     - "1389:10389"

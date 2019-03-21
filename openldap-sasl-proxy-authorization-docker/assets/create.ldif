@@ -1,0 +1,31 @@
+dn: dc=wimpi,dc=net
+objectClass: top
+objectClass: domain
+dc: wimpi
+
+dn: ou=users,dc=wimpi,dc=net
+objectClass: organizationalUnit
+objectClass: top
+ou: users
+
+dn: ou=groups,dc=wimpi,dc=net
+objectclass: organizationalUnit
+objectclass: top
+ou: groups
+
+dn: cn=AIP:Abbott,ou=groups,dc=wimpi,dc=net
+cn: AIP:Abbott
+objectclass: groupOfUniqueNames
+objectclass: top
+uniquemember: uid=test,ou=users,dc=wimpi,dc=net
+
+dn: uid=test,ou=users,dc=wimpi,dc=net
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+uid: test
+cn: Clement OUDOT
+sn: test
+userPassword: {SASL}test@wimpi.net
+# uniquemember: uid=test,ou=users,dc=wimpi,dc=net

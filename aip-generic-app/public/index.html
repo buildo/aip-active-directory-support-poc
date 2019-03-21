@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Login SSO</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: .8em 1em;
+            background: hsla(31, 15%, 50%, .1);
+            border-radius: 3px;
+        }
+
+        .button {
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            margin: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        const app = document.querySelector('#app');
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectUri = urlParams.get('redirect_uri')
+        const displayButtons = document.createElement("DIV")
+
+        function createButton({ label, clientId, nonce, color }) {
+            const btn = document.createElement("BUTTON");
+            const t = document.createTextNode(label);
+
+            const authorizationEndpoint = 'http://127.0.0.1:5556/auth/auth'
+            const adapterId = 'htmlform'
+            const redirectUri = 'http://127.0.0.1:5555/callback'
+            const scopes = 'openid profile email groups tenants'
+
+            gotoUrl = `${authorizationEndpoint}?response_type=code id_token&client_id=${clientId}&pfidpadapterid=${adapterId}&scope=${scopes}&redirect_uri=${redirectUri}&nonce=${nonce}`;
+
+            btn.appendChild(t);
+            btn.onclick = () => {
+                // set nonce
+                window.localStorage.setItem('nonce', nonce);
+                // redirect to login path
+                window.location.replace(`${gotoUrl}`)
+            }
+            btn.className = 'button'
+            btn.style.backgroundColor = color
+            displayButtons.appendChild(btn);
+        }
+
+        // infobox
+        let print = '<h3>CHOOSE YOUR USER</h3> <br/>'
+        urlParams.forEach((value, key) => {
+            print += `${key}: ${value} <br/>`
+        })
+
+        const displayParams = document.createElement("DIV")
+        displayParams.innerHTML = print
+
+        app.appendChild(displayParams)
+
+        // buttons
+        createButton({ label: "Go to Login with 'Example-App'", clientId: 'example-app', nonce: 'XXX', color: '#008CBA' })
+
+        app.appendChild(displayButtons)
+
+
+    </script>
+
+</body>
+
+</html>

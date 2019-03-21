@@ -1,0 +1,4 @@
+{
+  "/admin-api/*": "/$1",
+  "/auth/keys": "/keys"
+}

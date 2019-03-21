@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Login SSO</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: .8em 1em;
+            background: hsla(31, 15%, 50%, .1);
+            border-radius: 3px;
+        }
+
+        .button {
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            margin: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="text/javascript" src="token-data.js"></script>
+    <script>
+        const app = document.querySelector('#app');
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectUri = urlParams.get('redirect_uri')
+        const displayButtons = document.createElement("DIV")
+
+        function createButton({ label, token, nonce, color }) {
+            const btn = document.createElement("BUTTON");
+            const t = document.createTextNode(label);
+
+            btn.appendChild(t);
+            btn.onclick = () => {
+                // set nonce
+                window.localStorage.setItem('nonce', nonce);
+                // redirect to login path
+                window.location.replace(`${redirectUri}#access_token=fgbfysups2ilyj2cpfvw2c25w&code=tae6526hsljz6xrstxbs55k6z&id_token=${token}&state=%252F&token_type=bearer`)
+            }
+            btn.className = 'button'
+            btn.style.backgroundColor = color
+            displayButtons.appendChild(btn);
+        }
+
+        function parse_url(url) {
+            var match = url.match(/^(http|https|ftp)?(?:[\:\/]*)([a-z0-9\.-]*)(?:\:([0-9]+))?(\/[^?#]*)?(?:\?([^#]*))?(?:#(.*))?$/i);
+            var ret = new Object();
+
+            ret['protocol'] = '';
+            ret['host'] = match[2];
+            ret['port'] = '';
+            ret['path'] = '';
+            ret['query'] = '';
+            ret['fragment'] = '';
+
+            if (match[1]) {
+                ret['protocol'] = match[1];
+            }
+
+            if (match[3]) {
+                ret['port'] = match[3];
+            }
+
+            if (match[4]) {
+                ret['path'] = match[4];
+            }
+
+            if (match[5]) {
+                ret['query'] = match[5];
+            }
+
+            if (match[6]) {
+                ret['fragment'] = match[6];
+            }
+
+            return ret;
+        }
+
+        // var url_parts = parse_url(urls);
+
+        // var protocol = url_parts['protocol'];
+        // var host = url_parts['host'];
+        // var port = url_parts['port'];
+        // var path = url_parts['path'];
+        // var query = url_parts['query'];
+        // var fragment = url_parts['fragment'];
+
+
+        // infobox
+        let print = '<h3>You are: </h3> <br/>'
+        urlParams.forEach((value, key) => {
+            print += `${key}: ${value} <br/>`
+        })
+
+        var url_parts = parse_url(location.href);
+        var fragment = url_parts['fragment'];
+        console.log(fragment)
+        var fragment_parts = fragment.split('&');
+        token = fragment_parts[2].split('=')[1]
+        tokenObject = JSON.parse(atob(token.split('.')[1]))
+
+        console.log(tokenObject)
+        print += `Name: ${tokenObject.name} <br/>`
+        print += `Group: ${tokenObject.groups} <br/>`
+
+        const displayParams = document.createElement("DIV")
+        displayParams.innerHTML = print
+
+        app.appendChild(displayParams)
+
+
+    </script>
+
+</body>
+
+</html>
