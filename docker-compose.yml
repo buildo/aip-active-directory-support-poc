@@ -4,15 +4,16 @@ services:
     image: "openldap-sasl-proxy-authorization"
     environment:
       # openldap local server
-      - LDAP_DN_BASE=dc=wimpi,dc=net
-      - LDAP_ORGANIZATION=Wimpi
-      - LDAP_ROOT_DN=cn=Manager,dc=wimpi,dc=net
+      - LDAP_DN_BASE=dc=hospital,dc=net
+      - LDAP_ORGANIZATION=hospital
+      - LDAP_ROOT_DN=cn=Manager,dc=hospital,dc=net
       - LDAP_ROOT_PW=SuperSecret
       - LDAP_DATABASE=hdb
 
       # AD backend server
       - LDAP_SERVERS=ldap://adpoc_ad_1:10389
-      - LDAP_SEARCH_BASE=ou=users,dc=wimpi,dc=net
+      # dc=%r must match the realm
+      - LDAP_SEARCH_BASE=ou=users,dc=%r,dc=net
       - LDAP_TIMEOUT=10
       - LDAP_FILTER=(sAMAccountName=%U)
       - LDAP_BIND_DN=uid=admin,ou=system

@@ -1,31 +1,41 @@
-dn: dc=wimpi,dc=net
+dn: dc=hospital,dc=net
 objectClass: top
 objectClass: domain
-dc: wimpi
+dc: hospital
 
-dn: ou=users,dc=wimpi,dc=net
+dn: ou=users,dc=hospital,dc=net
 objectClass: organizationalUnit
 objectClass: top
 ou: users
 
-dn: ou=groups,dc=wimpi,dc=net
+dn: ou=groups,dc=hospital,dc=net
 objectclass: organizationalUnit
 objectclass: top
 ou: groups
 
-dn: cn=AIP:Abbott,ou=groups,dc=wimpi,dc=net
+dn: cn=AIP:Abbott,ou=groups,dc=hospital,dc=net
 cn: AIP:Abbott
 objectclass: groupOfUniqueNames
 objectclass: top
-uniquemember: uid=test,ou=users,dc=wimpi,dc=net
+uniquemember: uid=5d658fdb-aa3a-4dc9-be3c-c86c3973220b,ou=users,dc=hospital,dc=net
 
-dn: uid=test,ou=users,dc=wimpi,dc=net
+dn: cn=APRO:User,ou=groups,dc=hospital,dc=net
+cn: APRO:User
+objectclass: groupOfUniqueNames
+objectclass: top
+uniquemember: uid=5d658fdb-aa3a-4dc9-be3c-c86c3973220b,ou=users,dc=hospital,dc=net
+
+# Riccardo Ancona user, created with AIP Admin APP
+dn: uid=5d658fdb-aa3a-4dc9-be3c-c86c3973220b,ou=users,dc=hospital,dc=net
 objectClass: inetOrgPerson
 objectClass: organizationalPerson
 objectClass: person
 objectClass: top
-uid: test
-cn: Clement OUDOT
-sn: test
-userPassword: {SASL}test@wimpi.net
-# uniquemember: uid=test,ou=users,dc=wimpi,dc=net
+uid: 5d658fdb-aa3a-4dc9-be3c-c86c3973220b
+cn: Riccardo Ancona
+sn: hospital\riccardo.ancona
+mail: riccardo.ancona@buildo.io
+userPassword: {SASL}riccardo.ancona@hospital
+# Riccardo Ancona user link to Active Directory:
+# `sn` and username in `userPassword` must be linked manually because they can
+# mutate freely

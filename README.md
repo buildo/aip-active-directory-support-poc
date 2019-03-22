@@ -22,19 +22,26 @@ Then launch everything with:
 
 ### Free Notes (ignore them)
 
-ldapsearch -x -h 127.0.0.1 -p 1389 -D uid=admin,ou=system -w secret -b ou=users,dc=wimpi,dc=net
-ldapsearch -x -h ldap://adpoc_ad_1 -p 1389 -D uid=admin,ou=system -w secret -b ou=users,dc=wimpi,dc=net
+#### Search in LDAP
+
+#### Search in AD
+
+ldapsearch -v -x -h 127.0.0.1 -p 389 -D "uid=test,ou=users,dc=hospital,dc=net" -w secret -b "ou=users,dc=hospital,dc=net"
+
+#### trash
+ldapsearch -x -h 127.0.0.1 -p 1389 -D uid=admin,ou=system -w secret -b ou=users,dc=hospital,dc=net
+ldapsearch -x -h ldap://adpoc_ad_1 -p 1389 -D uid=admin,ou=system -w secret -b ou=users,dc=hospital,dc=net
 
 
-ldapsearch -x -h 127.0.0.1 -p 389 -b ou=users,dc=wimpi,dc=net  -D uid=test,ou=system -w secret
+ldapsearch -x -h 127.0.0.1 -p 389 -b ou=users,dc=hospital,dc=net  -D uid=test,ou=system -w secret
 
 
 ldapsearch -x -H ldap://adpoc_ldap_1 -b dc=example,dc=com -D samaccountname=test -w c2VjcmV0
 
 
-ldapsearch -x -h 127.0.0.1 -p 389 -b dc=wimpi,dc=net -D uid=test,ou=users,dc=wimpi,dc=net -w c2VjcmV0
+ldapsearch -x -h 127.0.0.1 -p 389 -b dc=hospital,dc=net -D uid=test,ou=users,dc=hospital,dc=net -w c2VjcmV0
 
-ldapsearch -x -h 127.0.0.1 -p 389 -b ou=users,dc=wimpi,dc=net -D uid=admin,ou=system  -w secret
+ldapsearch -x -h 127.0.0.1 -p 389 -b ou=users,dc=hospital,dc=net -D uid=admin,ou=system  -w secret
 
 
 ```
@@ -49,6 +56,6 @@ All of the above options are necessary to perform a simple, anonymous bind to th
 ```
 
 
- ldapsearch -v -x -h 127.0.0.1 -p 389 -D "cn=Manager,dc=wimpi,dc=net" -w SuperSecret -b "ou=users,dc=wimpi,dc=net"
+ ldapsearch -v -x -h 127.0.0.1 -p 389 -D "cn=Manager,dc=hospital,dc=net" -w SuperSecret -b "ou=users,dc=hospital,dc=net"
 
-ldapsearch -v -x -h 127.0.0.1 -p 389 -D "uid=test,ou=users,dc=wimpi,dc=net" -w secret -b "ou=users,dc=wimpi,dc=net"
+ldapsearch -v -x -h 127.0.0.1 -p 389 -D "uid=test,ou=users,dc=hospital,dc=net" -w secret -b "ou=users,dc=hospital,dc=net"

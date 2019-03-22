@@ -54,7 +54,7 @@
             const authorizationEndpoint = 'http://127.0.0.1:5556/auth/auth'
             const adapterId = 'htmlform'
             const redirectUri = 'http://127.0.0.1:5555/callback'
-            const scopes = 'openid profile email groups tenants'
+            const scopes = 'openid profile email groups'
 
             gotoUrl = `${authorizationEndpoint}?response_type=code id_token&client_id=${clientId}&pfidpadapterid=${adapterId}&scope=${scopes}&redirect_uri=${redirectUri}&nonce=${nonce}`;
 

@@ -63,36 +63,37 @@ m-must: objectCategory
 ############
 # Domain
 ############
-dn: dc=wimpi,dc=net
-dc: wimpi
+dn: dc=hospital,dc=net
+dc: hospital
 objectClass: top
 objectClass: domain
 
-dn: ou=users,dc=wimpi,dc=net
+dn: ou=users,dc=hospital,dc=net
 objectClass: organizationalUnit
 objectClass: top
 ou: users
 
-dn: uid=test,ou=users,dc=wimpi,dc=net
+dn: uid=8dfbff98-3576-44c7-ba34-661b65ddfbfc,ou=users,dc=hospital,dc=net
 objectClass: top
 objectClass: person
 objectClass: inetOrgPerson
 objectClass: simulatedMicrosoftSecurityPrincipal
 objectCategory: User
-cn: Test User
-sn: test
-uid: test
-sAMAccountName: test
-userPassword: secret
+cn: Name Surname but will not showed in APRO
+sn: Surname
+uid: 8dfbff98-3576-44c7-ba34-661b65ddfbfc
+sAMAccountName: riccardo.ancona
+# sAMAccountName must be the same specified in `userPassword: {SASL}`
+userPassword: Abbott123
 memberOf: admin
 
-dn: ou=roles,dc=wimpi,dc=net
+dn: ou=roles,dc=hospital,dc=net
 objectclass: top
 objectclass: organizationalUnit
 ou: roles
 
-dn: cn=admin,ou=roles,dc=wimpi,dc=net
+dn: cn=admin,ou=roles,dc=hospital,dc=net
 objectClass: top
 objectClass: groupOfNames
 cn: admin
-member: uid=test,ou=users,dc=wimpi,dc=net
+member: uid=8dfbff98-3576-44c7-ba34-661b65ddfbfc,ou=users,dc=hospital,dc=net
